@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>killerwhales_user</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: #000;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* High-tech matrix background */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Animated tech lines */
+        .tech-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.02) 2px,
+                    rgba(0, 255, 255, 0.02) 4px
+                );
+            z-index: 1;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        /* Holographic overlay */
+        .holo-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                ellipse at center,
+                transparent 0%,
+                rgba(0, 255, 255, 0.03) 50%,
+                transparent 100%
+            );
+            z-index: 2;
+            animation: holoPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes holoPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 120px;
+        }
+
+        /* Title with fade effect */
+        .main-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #00ffff;
+            text-transform: lowercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                0 0 10px rgba(0, 255, 255, 0.8),
+                0 0 20px rgba(0, 255, 255, 0.6),
+                0 0 30px rgba(0, 255, 255, 0.4),
+                0 0 40px rgba(0, 255, 255, 0.2);
+            animation: fadeInOut 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { 
+                opacity: 0.3;
+                text-shadow: 
+                    0 0 5px rgba(0, 255, 255, 0.4),
+                    0 0 10px rgba(0, 255, 255, 0.3);
+            }
+            50% { 
+                opacity: 1;
+                text-shadow: 
+                    0 0 10px rgba(0, 255, 255, 1),
+                    0 0 20px rgba(0, 255, 255, 0.8),
+                    0 0 30px rgba(0, 255, 255, 0.6),
+                    0 0 40px rgba(0, 255, 255, 0.4);
+            }
+        }
+
+        /* Floating Bitcoin icons */
+        .btc-icon {
+            position: fixed;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: #f7931a;
+            opacity: 0;
+            animation: floatBTC 12s ease-in-out infinite;
+            z-index: 5;
+            text-shadow: 
+                0 0 20px rgba(247, 147, 26, 0.6),
+                0 0 40px rgba(247, 147, 26, 0.4);
+            font-weight: bold;
+        }
+
+        /* Positioning for BTC icons */
+        .btc1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .btc2 { top: 20%; right: 12%; animation-delay: 2s; }
+        .btc3 { top: 40%; left: 15%; animation-delay: 4s; }
+        .btc4 { top: 45%; right: 18%; animation-delay: 6s; }
+        .btc5 { bottom: 25%; left: 12%; animation-delay: 8s; }
+        .btc6 { bottom: 20%; right: 15%; animation-delay: 10s; }
+        .btc7 { top: 60%; left: 8%; animation-delay: 1s; }
+        .btc8 { bottom: 35%; right: 10%; animation-delay: 3s; }
+        .btc9 { top: 30%; left: 25%; animation-delay: 5s; }
+        .btc10 { bottom: 40%; right: 22%; animation-delay: 7s; }
+        .btc11 { top: 70%; right: 25%; animation-delay: 9s; }
+        .btc12 { bottom: 15%; left: 20%; animation-delay: 11s; }
+
+        @keyframes floatBTC {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.7) rotate(0deg);
+            }
+            15% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-50px) scale(1) rotate(180deg);
+            }
+            85% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.7) rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding-top: 80px;
+            }
+            .btc-icon {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="tech-lines"></div>
+    <div class="holo-overlay"></div>
+
+    <!-- Bitcoin icons -->
+    <div class="btc-icon btc1">₿</div>
+    <div class="btc-icon btc2">₿</div>
+    <div class="btc-icon btc3">₿</div>
+    <div class="btc-icon btc4">₿</div>
+    <div class="btc-icon btc5">₿</div>
+    <div class="btc-icon btc6">₿</div>
+    <div class="btc-icon btc7">₿</div>
+    <div class="btc-icon btc8">₿</div>
+    <div class="btc-icon btc9">₿</div>
+    <div class="btc-icon btc10">₿</div>
+    <div class="btc-icon btc11">₿</div>
+    <div class="btc-icon btc12">₿</div>
+
+    <div class="container">
+        <h1 class="main-title">killerwhales_user</h1>
+    </div>
+
+    <script>
+        // Matrix rain effect - mờ và mượt hơn
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン₿';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            // Fade effect mượt hơn - tăng alpha để chữ chảy mờ dần
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Chữ mờ hơn nhiều
+            ctx.fillStyle = 'rgba(0, 255, 255, 0.1)';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
